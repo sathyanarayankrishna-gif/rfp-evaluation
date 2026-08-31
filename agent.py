@@ -24,10 +24,6 @@ from database import (
 )
 
 
-# ═══════════════════════════════════════════════════════════════════════
-# 1. DOCUMENT TOOL
-# ═══════════════════════════════════════════════════════════════════════
-
 class DocumentTool:
     @staticmethod
     def extract_text(pdf_path):
@@ -41,10 +37,6 @@ class DocumentTool:
         return text.strip()
 
 
-# ═══════════════════════════════════════════════════════════════════════
-# 2. EVALUATION AGENT (LLM-powered)
-# ═══════════════════════════════════════════════════════════════════════
-
 class EvaluationAgent:
     def __init__(self, provider="google", api_key=""):
         self.provider = provider.lower()
@@ -55,7 +47,18 @@ class EvaluationAgent:
         if self.provider == "google":
             import google.generativeai as genai
             genai.configure(api_key=self.api_key)
-            self.model = genai.GenerativeModel("gemini-2.5-flash")
+            # Try models in order: newest free tier first
+            self.model = None
+            for model_name in ["gemini-1.5-flash", "gemini-1.5-pro", "gemini-3.5-flash-lite"]:
+                try:
+                    self.model = genai.GenerativeModel(model_name)
+                    self.model_name = model_name
+                    break
+                except Exception:
+                    continue
+            if self.model is None:
+                self.model = genai.GenerativeModel("gemini-1.5-flash")
+                self.model_name = "gemini-1.5-flash"
         elif self.provider == "openai":
             from openai import OpenAI
             self.client = OpenAI(api_key=self.api_key)
@@ -141,10 +144,6 @@ OUTPUT FORMAT (strict JSON):
             return {"error": str(e)}
 
 
-# ═══════════════════════════════════════════════════════════════════════
-# 3. VALIDATION TOOL
-# ═══════════════════════════════════════════════════════════════════════
-
 class ValidationTool:
     @staticmethod
     def validate(llm_output, criteria, supplier_name):
@@ -223,10 +222,6 @@ class ValidationTool:
         }
 
 
-# ═══════════════════════════════════════════════════════════════════════
-# 4. RANKING TOOL (deterministic — NO LLM)
-# ═══════════════════════════════════════════════════════════════════════
-
 class RankingTool:
     @staticmethod
     def calculate_absolute_score(validated, criteria):
@@ -299,10 +294,6 @@ class RankingTool:
             s["final_rank"] = idx
         return ranked
 
-
-# ═══════════════════════════════════════════════════════════════════════
-# 5. ORCHESTRATOR AGENT
-# ═══════════════════════════════════════════════════════════════════════
 
 class OrchestratorAgent:
     def __init__(self, llm_provider="google", api_key=""):
