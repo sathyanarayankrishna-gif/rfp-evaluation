@@ -55,7 +55,7 @@ class EvaluationAgent:
         if self.provider == "google":
             import google.generativeai as genai
             genai.configure(api_key=self.api_key)
-            self.model = genai.GenerativeModel("gemini-2.0-flash")
+            self.model = genai.GenerativeModel("gemini-2.5-flash")
         elif self.provider == "openai":
             from openai import OpenAI
             self.client = OpenAI(api_key=self.api_key)
@@ -92,6 +92,7 @@ SUPPLIER NAME: {supplier_name}
 
 SUPPLIER DOCUMENT:
 \"\"\"{document_text[:12000]}\"\"\"
+
 OUTPUT FORMAT (strict JSON):
 {{
   "supplier_name": "{supplier_name}",
