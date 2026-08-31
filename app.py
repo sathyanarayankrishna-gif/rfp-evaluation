@@ -1,12 +1,5 @@
 """
 app.py — Streamlit UI for the Agentic RFP Evaluation System
-
-Screens:
-  1. Criteria         — active criteria, weights, max scores
-  2. Supplier Input   — PDF upload, metadata, validation, Evaluate button
-  3. Leaderboard      — rank, supplier, absolute score, PPI, date, rating
-  4. Detailed Scorecard — criterion score, benchmark, gap, relative %, evidence
-  5. Run Details      — RFP_RUN_ID, warnings, tie-break explanation, JSON download
 """
 
 import streamlit as st
@@ -18,9 +11,6 @@ from datetime import date
 from database import get_active_criteria, get_all_runs, get_run_results
 from agent import OrchestratorAgent
 
-# ─────────────────────────────────────────────────────────────────────────
-# Page config
-# ─────────────────────────────────────────────────────────────────────────
 st.set_page_config(
     page_title="RFP Evaluation System",
     page_icon="📊",
@@ -30,9 +20,7 @@ st.set_page_config(
 st.title("📊 Agentic RFP Evaluation & Supplier Ranking")
 st.caption("AI-assisted proposal scoring with deterministic ranking and full explainability")
 
-# ─────────────────────────────────────────────────────────────────────────
-# Sidebar — API key
-# ─────────────────────────────────────────────────────────────────────────
+# ─── Sidebar ───
 with st.sidebar:
     st.header("⚙️ Configuration")
 
@@ -48,12 +36,19 @@ with st.sidebar:
         help="Get a free Gemini key at https://aistudio.google.com/app/apikey",
     )
 
-    # Try to load from Streamlit secrets or environment
     if not api_key:
         try:
-            api_key = st.secrets.get("GOOGLE_API_KEY", "") or st.secrets.get("OPENAI_API_KEY", "")
+            api_key = st.secrets["GOOGLE_API_KEY"]
         except Exception:
-            api_key = os.environ.get("GOOGLE_API_KEY", "") or os.environ.get("OPENAI_API_KEY", "")
+            try:
+                api_key = st.secrets["OPENAI_API_KEY"]
+            except Exception:
+                api_key = os.environ.get("GOOGLE_API_KEY", "") or os.environ.get("OPENAI_API_KEY", "")
+
+    if api_key:
+        st.success("API key loaded ✓")
+    else:
+        st.error("No API key found")
 
     st.divider()
     st.markdown("**Tie-Break Rules:**")
@@ -64,16 +59,12 @@ with st.sidebar:
     4. Supplier name (A→Z)
     """)
 
-# ─────────────────────────────────────────────────────────────────────────
-# Tabs
-# ─────────────────────────────────────────────────────────────────────────
+# ─── Tabs ───
 tab_criteria, tab_input, tab_results, tab_history = st.tabs([
     "📋 Criteria", "📤 Supplier Input", "🏆 Results", "📁 Past Runs"
 ])
 
-# ═══════════════════════════════════════════════════════════════════════════
-# TAB 1 — CRITERIA
-# ═══════════════════════════════════════════════════════════════════════════
+# ═══ TAB 1 — CRITERIA ═══
 with tab_criteria:
     st.subheader("Active Evaluation Criteria")
     criteria = get_active_criteria()
@@ -93,13 +84,10 @@ with tab_criteria:
     else:
         st.error("No active criteria found. Check database setup.")
 
-# ═══════════════════════════════════════════════════════════════════════════
-# TAB 2 — SUPPLIER INPUT
-# ═══════════════════════════════════════════════════════════════════════════
+# ═══ TAB 2 — SUPPLIER INPUT ═══
 with tab_input:
     st.subheader("Upload Supplier RFP Documents")
 
-    # File uploader
     uploaded_files = st.file_uploader(
         "Upload RFP PDF files",
         type=["pdf"],
@@ -110,7 +98,6 @@ with tab_input:
     if uploaded_files:
         st.write(f"**{len(uploaded_files)} file(s) uploaded**")
 
-        # Metadata entry for each file
         suppliers_meta = []
         valid = True
 
@@ -155,14 +142,11 @@ with tab_input:
 
         st.divider()
 
-        # Validate
         if not api_key:
             st.warning("Please enter your API key in the sidebar before evaluating.")
 
-        # Evaluate button
         if st.button("🚀 Evaluate All Suppliers", type="primary",
                       disabled=(not valid or not api_key)):
-            # Save uploaded PDFs to temp files
             suppliers_for_agent = []
             temp_dir = tempfile.mkdtemp()
 
@@ -177,18 +161,15 @@ with tab_input:
                     "experience_rating": sm["experience_rating"],
                 })
 
-            # Run the orchestrator
             status_area = st.empty()
             progress_bar = st.progress(0)
 
             step_count = [0]
-            total_steps = 5 + len(suppliers_for_agent) * 3  # approximate
+            total_steps = 5 + len(suppliers_for_agent) * 3
 
             def progress_cb(msg):
                 step_count[0] += 1
-                progress_bar.progress(
-                    min(step_count[0] / total_steps, 1.0)
-                )
+                progress_bar.progress(min(step_count[0] / total_steps, 1.0))
                 status_area.info(msg)
 
             try:
@@ -202,28 +183,34 @@ with tab_input:
                 )
 
                 progress_bar.progress(1.0)
-                status_area.success("✅ Evaluation complete! Switch to the Results tab.")
+
+                if result.get("warnings"):
+                    status_area.warning(
+                        f"⚠️ Completed with {len(result['warnings'])} warning(s)."
+                    )
+                    for w in result["warnings"]:
+                        st.warning(w)
+                else:
+                    status_area.success("✅ Evaluation complete! Switch to the Results tab.")
 
                 st.session_state["last_result"] = result
 
             except Exception as e:
                 st.error(f"Evaluation failed: {str(e)}")
+                import traceback
+                st.code(traceback.format_exc())
 
     else:
         st.info("Upload one or more supplier RFP PDF files to begin.")
 
-# ═══════════════════════════════════════════════════════════════════════════
-# TAB 3 — RESULTS (Leaderboard + Scorecard)
-# ═══════════════════════════════════════════════════════════════════════════
+# ═══ TAB 3 — RESULTS ═══
 with tab_results:
     result = st.session_state.get("last_result")
 
     if result and "error" not in result:
         st.subheader(f"Run: {result['rfp_run_id']}")
 
-        # ── Leaderboard ────────────────────────────────────────────────
         st.markdown("### 🏆 Leaderboard")
-
         import pandas as pd
         leaderboard_data = []
         for s in result["suppliers"]:
@@ -238,9 +225,7 @@ with tab_results:
         df_lb = pd.DataFrame(leaderboard_data)
         st.dataframe(df_lb, use_container_width=True, hide_index=True)
 
-        # ── Detailed Scorecards ────────────────────────────────────────
         st.markdown("### 📊 Detailed Scorecards")
-
         for s in result["suppliers"]:
             with st.expander(
                 f"{'🥇' if s['final_rank'] == 1 else '📄'} "
@@ -258,13 +243,8 @@ with tab_results:
                         "Relative %": c.get("relative_pct", "—"),
                         "Weight %": c.get("weight", "—"),
                     })
-                st.dataframe(
-                    pd.DataFrame(scorecard_data),
-                    use_container_width=True,
-                    hide_index=True,
-                )
+                st.dataframe(pd.DataFrame(scorecard_data), use_container_width=True, hide_index=True)
 
-                # Evidence & Justification
                 for c in s["criteria"]:
                     cname = c.get("criterion_name", f"Criterion {c['criterion_id']}")
                     st.markdown(f"**{cname}** — Score: {c['score']}/{c['max_score']}")
@@ -272,40 +252,32 @@ with tab_results:
                     st.markdown(f"*Evidence:* {c.get('evidence', 'N/A')}")
                     st.markdown("---")
 
-                # Risks
                 if s.get("risks"):
                     st.markdown("**Identified Risks:**")
                     for risk in s["risks"]:
                         st.markdown(f"- {risk}")
 
-                # Summary
                 if s.get("overall_summary"):
                     st.markdown(f"**Summary:** {s['overall_summary']}")
 
-        # ── Run Details ────────────────────────────────────────────────
         st.markdown("### 📋 Run Details")
-
         col1, col2 = st.columns(2)
         with col1:
             st.metric("RFP Run ID", result["rfp_run_id"])
             st.metric("Status", result["status"])
-
         with col2:
             st.metric("Suppliers Evaluated", len(result["suppliers"]))
             st.metric("Created", result["created_at"][:19])
 
-        # Tie-break explanation
         st.markdown("**Tie-Break Rules Applied:**")
         for rule in result.get("tie_break_rules", []):
             st.markdown(f"- {rule}")
 
-        # Warnings
         if result.get("warnings"):
             st.markdown("**⚠️ Warnings:**")
             for w in result["warnings"]:
                 st.warning(w)
 
-        # JSON Download
         st.markdown("### 💾 Export")
         json_str = json.dumps(result, indent=2, default=str)
         st.download_button(
@@ -317,9 +289,7 @@ with tab_results:
     else:
         st.info("No results yet. Upload supplier PDFs and run an evaluation in the Supplier Input tab.")
 
-# ═══════════════════════════════════════════════════════════════════════════
-# TAB 4 — PAST RUNS
-# ═══════════════════════════════════════════════════════════════════════════
+# ═══ TAB 4 — PAST RUNS ═══
 with tab_history:
     st.subheader("Past Evaluation Runs")
     runs = get_all_runs()
@@ -340,7 +310,6 @@ with tab_history:
                         })
                     st.dataframe(pd.DataFrame(hist_data), use_container_width=True, hide_index=True)
 
-                    # Allow downloading individual run results
                     full_results = []
                     for r in results:
                         try:
