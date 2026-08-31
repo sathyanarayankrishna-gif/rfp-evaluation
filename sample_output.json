@@ -1,0 +1,368 @@
+{
+  "rfp_run_id": "RUN-20260831-042440-9a0936",
+  "created_at": "2026-08-31T04:24:43.854488",
+  "status": "COMPLETED",
+  "criteria_used": [
+    {
+      "criterion_id": 1,
+      "name": "Technical Capability",
+      "description": "Architecture, integrations, scalability, technical fit",
+      "weight": 30.0,
+      "max_score": 10.0,
+      "is_active": 1
+    },
+    {
+      "criterion_id": 2,
+      "name": "Implementation Plan",
+      "description": "Timeline, milestones, staffing, risk plan",
+      "weight": 20.0,
+      "max_score": 10.0,
+      "is_active": 1
+    },
+    {
+      "criterion_id": 3,
+      "name": "Commercial Value",
+      "description": "Pricing clarity, total cost, assumptions",
+      "weight": 20.0,
+      "max_score": 10.0,
+      "is_active": 1
+    },
+    {
+      "criterion_id": 4,
+      "name": "Security & Compliance",
+      "description": "Controls, certifications, privacy, auditability",
+      "weight": 20.0,
+      "max_score": 10.0,
+      "is_active": 1
+    },
+    {
+      "criterion_id": 5,
+      "name": "Support & Experience",
+      "description": "Support model, similar projects, references",
+      "weight": 10.0,
+      "max_score": 10.0,
+      "is_active": 1
+    }
+  ],
+  "benchmarks": {
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 0,
+    "5": 0
+  },
+  "suppliers": [
+    {
+      "supplier_name": "Orbit Digital",
+      "criteria": [
+        {
+          "criterion_id": 1,
+          "criterion_name": "Technical Capability",
+          "score": 0,
+          "max_score": 10.0,
+          "justification": "LLM failed \u2014 score defaulted to 0.",
+          "evidence": "N/A",
+          "benchmark": 0,
+          "gap": 0,
+          "relative_pct": 100.0,
+          "weight": 30.0
+        },
+        {
+          "criterion_id": 2,
+          "criterion_name": "Implementation Plan",
+          "score": 0,
+          "max_score": 10.0,
+          "justification": "LLM failed \u2014 score defaulted to 0.",
+          "evidence": "N/A",
+          "benchmark": 0,
+          "gap": 0,
+          "relative_pct": 100.0,
+          "weight": 20.0
+        },
+        {
+          "criterion_id": 3,
+          "criterion_name": "Commercial Value",
+          "score": 0,
+          "max_score": 10.0,
+          "justification": "LLM failed \u2014 score defaulted to 0.",
+          "evidence": "N/A",
+          "benchmark": 0,
+          "gap": 0,
+          "relative_pct": 100.0,
+          "weight": 20.0
+        },
+        {
+          "criterion_id": 4,
+          "criterion_name": "Security & Compliance",
+          "score": 0,
+          "max_score": 10.0,
+          "justification": "LLM failed \u2014 score defaulted to 0.",
+          "evidence": "N/A",
+          "benchmark": 0,
+          "gap": 0,
+          "relative_pct": 100.0,
+          "weight": 20.0
+        },
+        {
+          "criterion_id": 5,
+          "criterion_name": "Support & Experience",
+          "score": 0,
+          "max_score": 10.0,
+          "justification": "LLM failed \u2014 score defaulted to 0.",
+          "evidence": "N/A",
+          "benchmark": 0,
+          "gap": 0,
+          "relative_pct": 100.0,
+          "weight": 10.0
+        }
+      ],
+      "risks": [],
+      "overall_summary": "Evaluation could not be completed.",
+      "warnings": [
+        "LLM error: 404 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: This model models/gemini-2.0-flash is no longer available. Please update your code to use models/gemini-3.6-flash for the latest features and improvements. We recommend you to use the Interactions API."
+      ],
+      "submission_date": "2024-11-13",
+      "experience_rating": 8.0,
+      "absolute_score": 0.0,
+      "ppi": 100.0,
+      "final_rank": 1
+    },
+    {
+      "supplier_name": "NexaWorks",
+      "criteria": [
+        {
+          "criterion_id": 1,
+          "criterion_name": "Technical Capability",
+          "score": 0,
+          "max_score": 10.0,
+          "justification": "LLM failed \u2014 score defaulted to 0.",
+          "evidence": "N/A",
+          "benchmark": 0,
+          "gap": 0,
+          "relative_pct": 100.0,
+          "weight": 30.0
+        },
+        {
+          "criterion_id": 2,
+          "criterion_name": "Implementation Plan",
+          "score": 0,
+          "max_score": 10.0,
+          "justification": "LLM failed \u2014 score defaulted to 0.",
+          "evidence": "N/A",
+          "benchmark": 0,
+          "gap": 0,
+          "relative_pct": 100.0,
+          "weight": 20.0
+        },
+        {
+          "criterion_id": 3,
+          "criterion_name": "Commercial Value",
+          "score": 0,
+          "max_score": 10.0,
+          "justification": "LLM failed \u2014 score defaulted to 0.",
+          "evidence": "N/A",
+          "benchmark": 0,
+          "gap": 0,
+          "relative_pct": 100.0,
+          "weight": 20.0
+        },
+        {
+          "criterion_id": 4,
+          "criterion_name": "Security & Compliance",
+          "score": 0,
+          "max_score": 10.0,
+          "justification": "LLM failed \u2014 score defaulted to 0.",
+          "evidence": "N/A",
+          "benchmark": 0,
+          "gap": 0,
+          "relative_pct": 100.0,
+          "weight": 20.0
+        },
+        {
+          "criterion_id": 5,
+          "criterion_name": "Support & Experience",
+          "score": 0,
+          "max_score": 10.0,
+          "justification": "LLM failed \u2014 score defaulted to 0.",
+          "evidence": "N/A",
+          "benchmark": 0,
+          "gap": 0,
+          "relative_pct": 100.0,
+          "weight": 10.0
+        }
+      ],
+      "risks": [],
+      "overall_summary": "Evaluation could not be completed.",
+      "warnings": [
+        "LLM error: 404 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: This model models/gemini-2.0-flash is no longer available. Please update your code to use models/gemini-3.6-flash for the latest features and improvements. We recommend you to use the Interactions API."
+      ],
+      "submission_date": "2024-11-14",
+      "experience_rating": 7.5,
+      "absolute_score": 0.0,
+      "ppi": 100.0,
+      "final_rank": 2
+    },
+    {
+      "supplier_name": "Apex Systems",
+      "criteria": [
+        {
+          "criterion_id": 1,
+          "criterion_name": "Technical Capability",
+          "score": 0,
+          "max_score": 10.0,
+          "justification": "LLM failed \u2014 score defaulted to 0.",
+          "evidence": "N/A",
+          "benchmark": 0,
+          "gap": 0,
+          "relative_pct": 100.0,
+          "weight": 30.0
+        },
+        {
+          "criterion_id": 2,
+          "criterion_name": "Implementation Plan",
+          "score": 0,
+          "max_score": 10.0,
+          "justification": "LLM failed \u2014 score defaulted to 0.",
+          "evidence": "N/A",
+          "benchmark": 0,
+          "gap": 0,
+          "relative_pct": 100.0,
+          "weight": 20.0
+        },
+        {
+          "criterion_id": 3,
+          "criterion_name": "Commercial Value",
+          "score": 0,
+          "max_score": 10.0,
+          "justification": "LLM failed \u2014 score defaulted to 0.",
+          "evidence": "N/A",
+          "benchmark": 0,
+          "gap": 0,
+          "relative_pct": 100.0,
+          "weight": 20.0
+        },
+        {
+          "criterion_id": 4,
+          "criterion_name": "Security & Compliance",
+          "score": 0,
+          "max_score": 10.0,
+          "justification": "LLM failed \u2014 score defaulted to 0.",
+          "evidence": "N/A",
+          "benchmark": 0,
+          "gap": 0,
+          "relative_pct": 100.0,
+          "weight": 20.0
+        },
+        {
+          "criterion_id": 5,
+          "criterion_name": "Support & Experience",
+          "score": 0,
+          "max_score": 10.0,
+          "justification": "LLM failed \u2014 score defaulted to 0.",
+          "evidence": "N/A",
+          "benchmark": 0,
+          "gap": 0,
+          "relative_pct": 100.0,
+          "weight": 10.0
+        }
+      ],
+      "risks": [],
+      "overall_summary": "Evaluation could not be completed.",
+      "warnings": [
+        "LLM error: 404 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: This model models/gemini-2.0-flash is no longer available. Please update your code to use models/gemini-3.6-flash for the latest features and improvements. We recommend you to use the Interactions API."
+      ],
+      "submission_date": "2024-11-15",
+      "experience_rating": 9.0,
+      "absolute_score": 0.0,
+      "ppi": 100.0,
+      "final_rank": 3
+    },
+    {
+      "supplier_name": "BrightPath Tech",
+      "criteria": [
+        {
+          "criterion_id": 1,
+          "criterion_name": "Technical Capability",
+          "score": 0,
+          "max_score": 10.0,
+          "justification": "LLM failed \u2014 score defaulted to 0.",
+          "evidence": "N/A",
+          "benchmark": 0,
+          "gap": 0,
+          "relative_pct": 100.0,
+          "weight": 30.0
+        },
+        {
+          "criterion_id": 2,
+          "criterion_name": "Implementation Plan",
+          "score": 0,
+          "max_score": 10.0,
+          "justification": "LLM failed \u2014 score defaulted to 0.",
+          "evidence": "N/A",
+          "benchmark": 0,
+          "gap": 0,
+          "relative_pct": 100.0,
+          "weight": 20.0
+        },
+        {
+          "criterion_id": 3,
+          "criterion_name": "Commercial Value",
+          "score": 0,
+          "max_score": 10.0,
+          "justification": "LLM failed \u2014 score defaulted to 0.",
+          "evidence": "N/A",
+          "benchmark": 0,
+          "gap": 0,
+          "relative_pct": 100.0,
+          "weight": 20.0
+        },
+        {
+          "criterion_id": 4,
+          "criterion_name": "Security & Compliance",
+          "score": 0,
+          "max_score": 10.0,
+          "justification": "LLM failed \u2014 score defaulted to 0.",
+          "evidence": "N/A",
+          "benchmark": 0,
+          "gap": 0,
+          "relative_pct": 100.0,
+          "weight": 20.0
+        },
+        {
+          "criterion_id": 5,
+          "criterion_name": "Support & Experience",
+          "score": 0,
+          "max_score": 10.0,
+          "justification": "LLM failed \u2014 score defaulted to 0.",
+          "evidence": "N/A",
+          "benchmark": 0,
+          "gap": 0,
+          "relative_pct": 100.0,
+          "weight": 10.0
+        }
+      ],
+      "risks": [],
+      "overall_summary": "Evaluation could not be completed.",
+      "warnings": [
+        "LLM error: 404 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: This model models/gemini-2.0-flash is no longer available. Please update your code to use models/gemini-3.6-flash for the latest features and improvements. We recommend you to use the Interactions API."
+      ],
+      "submission_date": "2024-11-15",
+      "experience_rating": 5.0,
+      "absolute_score": 0.0,
+      "ppi": 100.0,
+      "final_rank": 4
+    }
+  ],
+  "warnings": [
+    "Apex Systems: LLM error: 404 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: This model models/gemini-2.0-flash is no longer available. Please update your code to use models/gemini-3.6-flash for the latest features and improvements. We recommend you to use the Interactions API.",
+    "BrightPath Tech: LLM error: 404 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: This model models/gemini-2.0-flash is no longer available. Please update your code to use models/gemini-3.6-flash for the latest features and improvements. We recommend you to use the Interactions API.",
+    "NexaWorks: LLM error: 404 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: This model models/gemini-2.0-flash is no longer available. Please update your code to use models/gemini-3.6-flash for the latest features and improvements. We recommend you to use the Interactions API.",
+    "Orbit Digital: LLM error: 404 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: This model models/gemini-2.0-flash is no longer available. Please update your code to use models/gemini-3.6-flash for the latest features and improvements. We recommend you to use the Interactions API."
+  ],
+  "tie_break_rules": [
+    "1) Higher PPI first",
+    "2) Earlier submission date",
+    "3) Higher historical experience rating",
+    "4) Supplier name ascending (alphabetical)"
+  ]
+}
