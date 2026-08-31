@@ -48,17 +48,8 @@ class EvaluationAgent:
             import google.generativeai as genai
             genai.configure(api_key=self.api_key)
             # Try models in order: newest free tier first
-            self.model = None
-            for model_name in ["gemini-1.5-flash", "gemini-1.5-pro", "gemini-3.5-flash-lite"]:
-                try:
-                    self.model = genai.GenerativeModel(model_name)
-                    self.model_name = model_name
-                    break
-                except Exception:
-                    continue
-            if self.model is None:
-                self.model = genai.GenerativeModel("gemini-1.5-flash")
-                self.model_name = "gemini-1.5-flash"
+            self.model = genai.GenerativeModel("gemini-3.6-flash")
+            self.model_name = "gemini-3.6-flash"
         elif self.provider == "openai":
             from openai import OpenAI
             self.client = OpenAI(api_key=self.api_key)
